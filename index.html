@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Encryption and Decryption App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+      text-transform: uppercase;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      resize: none;
+      font-family: Arial, sans-serif;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      height: 30px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      font-family: Arial, sans-serif;
+      border-radius: 30px;
+      outline: none;
+    }
+
+    .btn-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .btn-container button {
+      margin-right: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      border-radius: 10px;
+    }
+
+    .btn-container button:hover {
+      background-color: #b700ff;
+    }
+
+    .output {
+      margin-top: 20px;
+    }
+
+    .output h3 {
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    .output textarea {
+      width: 100%;
+      height: 100px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      resize: none;
+      font-family: Consolas, monospace;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    .alert {
+      color: #f44336;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Encryption and Decryption App</h1>
+
+    <div class="alert" id="alert"></div>
+
+    <label for="input">Enter the text to encrypt or decrypt:</label>
+    <textarea id="input"></textarea>
+
+    <label for="key">Enter the encryption/decryption key:</label>
+    <input type="text" id="key" />
+
+    <div class="btn-container">
+      <button onclick="encrypt()">Encrypt</button>
+      <button onclick="decrypt()">Decrypt</button>
+      <button onclick="clearFields()">Clear</button>
+    </div>
+
+    <div class="output">
+      <h3>Output:</h3>
+      <textarea id="output" readonly></textarea>
+    </div>
+  </div>
+
+  <script>
+    // Function to display an alert message
+    function showAlert(message) {
+      var alertElement = document.getElementById("alert");
+      alertElement.textContent = message;
+      alertElement.style.display = "block";
+    }
+
+    // Function to encrypt the input text
+    function encrypt() {
+      var input = document.getElementById("input").value;
+      var key = document.getElementById("key").value;
+
+      if (input === "") {
+        showAlert("Please enter the text to encrypt.");
+        return;
+      }
+
+      if (key === "") {
+        showAlert("Please enter the encryption/decryption key.");
+        return;
+      }
+
+      var encryptedText = "";
+
+      for (var i = 0; i < input.length; i++) {
+        var charCode = input.charCodeAt(i);
+        encryptedText += String.fromCharCode(charCode + key.length);
+      }
+
+      document.getElementById("output").value = encryptedText;
+      document.getElementById("alert").style.display = "none";
+    }
+
+    // Function to decrypt the input text
+    function decrypt() {
+      var input = document.getElementById("input").value;
+      var key = document.getElementById("key").value;
+
+      if (input === "") {
+        showAlert("Please enter the text to decrypt.");
+        return;
+      }
+
+      if (key === "") {
+        showAlert("Please enter the encryption/decryption key.");
+        return;
+      }
+
+      var decryptedText = "";
+
+      for (var i = 0; i < input.length; i++) {
+        var charCode = input.charCodeAt(i);
+        decryptedText += String.fromCharCode(charCode - key.length);
+      }
+
+      document.getElementById("output").value = decryptedText;
+      document.getElementById("alert").style.display = "none";
+    }
+
+    // Function to clear the input and output fields
+    function clearFields() {
+      document.getElementById("input").value = "";
+      document.getElementById("key").value = "";
+      document.getElementById("output").value = "";
+      document.getElementById("alert").style.display = "none";
+    }
+  </script>
+</body>
+</html>
